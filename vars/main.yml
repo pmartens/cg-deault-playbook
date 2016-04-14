@@ -1,0 +1,89 @@
+---
+configure_sudoers: yes
+
+dotfiles_home: "~"
+dotfiles_repo: files/dotfiles
+dotfiles_repo_local_destination: ~
+dotfiles_files:
+  - .bash_profile
+  - .gitignore
+  - .inputrc
+  - .osx
+  - .vimrc
+homebrew_install_path: /usr/local
+homebrew_brew_bin_path: /usr/local/bin
+homebrew_upgrade_all_packages: no
+homebrew_cask_appdir: /Applications
+homebrew_use_brewfile: true
+homebrew_brewfile_dir: '~'
+homebrew_taps:
+  - caskroom/cask
+  - homebrew/binary
+  - homebrew/dupes
+  - homebrew/php
+  - homebrew/versions
+homebrew_installed_packages:
+  - ansible
+  - autoconf
+  - bash-completion
+  - boot2docker
+  - docker
+  - gettext
+  - git
+  - go
+  - gpg
+  - hub
+  - httpie
+  - iperf
+  - libdvdcss
+  - libevent
+  - packer
+  - python
+  - sqlite
+  - mcrypt
+  - mysql
+  - npm
+  - nvm
+  - php56
+  - php56-mcrypt
+  - php56-xdebug
+  - ssh-copy-id
+  - cowsay
+  - ios-sim
+  - readline
+  - subversion
+  - kdiff3
+  - openssl
+  - pv
+  - drush
+  - wget
+  - wrk
+  - brew-cask
+homebrew_cask_apps:
+#  - adium
+  - bettertouchtool
+  - google-chrome
+#  - dropbox
+  - fing
+  - firefox
+#  - handbrake
+#  - karabiner
+#  - limechat
+#  - licecap
+#  - macvim
+#  - menumeters
+#  - nvalt
+  - sequel-pro
+#  - skype
+#  - skitch
+#  - seil
+  - sublime-text # Note - Sublime Text 2 only, at this time...
+#  - textmate
+  - timemachineeditor
+#  - tower
+#  - transmit
+#  - vagrant
+#  - vagrant-manager
+  - vlc
+#  - virtualbox
+  - slack

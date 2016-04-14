@@ -1,0 +1,2 @@
+[test]
+macmini-1.cg.lan ansible_ssh_host=10.0.0.15
