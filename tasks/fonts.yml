@@ -1,0 +1,10 @@
+---
+- name: Copy CG fonts to system
+  copy:
+    src: files/fonts/{{ item }}
+    dest: /Library/Fonts/{{ item }}
+    group: staff
+    mode: 0755
+  with_items: "{{fonts}}"
+  failed_when: false
+  sudo: yes

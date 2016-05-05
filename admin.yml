@@ -1,0 +1,20 @@
+---
+# playbook for setting up the admin account with stuff I like to work with
+
+- hosts: test
+  user: administrator
+
+  vars_files:
+    - vars/admin.yml
+
+  tasks:
+    - include: tasks/terminal.yml
+    - include: tasks/homebrew.yml
+    - include: tasks/dotfiles.yml
+    - include: tasks/fonts.yml
+    - include: tasks/dock.yml
+    - include: tasks/theme.yml
+    - name: Run .osx dotfile
+      shell: ~/.osx --no-restart
+      changed_when: false
+      sudo: yes

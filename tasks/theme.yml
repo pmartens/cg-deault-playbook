@@ -1,0 +1,31 @@
+---
+- name: Copy CG pictures
+  copy:
+    src: files/cg/{{ item }}
+    dest: /Users/Shared/{{ item }}
+    group: staff
+    mode: 0755
+  with_items: "{{cg_pictures}}"
+  failed_when: false
+  sudo: yes
+
+- name: Set Desktop Wallpaper
+  shell: osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/Shared/{{ wallpaper_image }}"'
+  become: no
+
+- name: 'Herstart Dock environment'
+  shell: 'killall Dock'
+
+- name: Delete existance login jpegphoto
+  shell: dscl . delete /Users/{{ user }} jpegphoto
+
+- name: Delete existance login Picture
+  shell: dscl . delete /Users/{{ user }} Picture
+
+- name: set new loging picture
+  shell: sudo dscl . create /Users/{{ user }} Picture "/Users/Shared/cg-avatar.png"
+  sudo: yes
+
+- name: Rebuild the system caches
+  shell: sudo kextcache -system-caches
+  sudo: yes

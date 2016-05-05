@@ -1,0 +1,20 @@
+---
+- hosts: developers
+  user: administrator
+
+  vars_files:
+    - vars/main.yml
+    - vars/development.yml
+
+  tasks:
+    - include: tasks/terminal.yml
+    - include: tasks/homebrew.yml
+    - include: tasks/dotfiles.yml
+    - include: tasks/fonts.yml
+    - include: tasks/dock.yml
+    - include: tasks/theme.yml
+    - name: Run .osx dotfile
+      shell: ~/.osx --no-restart
+      changed_when: false
+      sudo: yes
+    - include: tasks/homebrew_dev.yml

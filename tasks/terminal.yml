@@ -5,17 +5,24 @@
   register: terminal_theme
   changed_when: false
 
+- name: create a directory if it doesn't exist
+  file: path=~/files/terminal state=directory mode=0755
+  changed_when: false
+
+- name: Ensure custom Terminal profile is copied.
+  copy: src=files/terminal/JJG-Term.terminal dest=~/files/terminal/JJG-Term.terminal mode=0755 force=yes
+  changed_when: false
+
 - name: Ensure custom Terminal profile is added.
-  shell: open files/terminal/JJG-Term.terminal
+  shell: open ~/files/terminal/JJG-Term.terminal
   changed_when: false
   when: "'JJG-Term' not in terminal_theme.stdout"
 
-# TODO: This doesn't work in Yosemite. Consider a different solution?
 - name: Ensure custom Terminal profile is set as default.
   shell: "{{ item }}"
   with_items:
-    - defaults write com.apple.terminal 'Default Window Settings' -string JJG-Term
-    - defaults write com.apple.terminal 'Startup Window Settings' -string JJG-Term
+    - defaults write com.apple.terminal 'Default Window Settings' -string Pro
+    - defaults write com.apple.terminal 'Startup Window Settings' -string Pro
   changed_when: false
   when: "'JJG-Term' not in terminal_theme.stdout"
 

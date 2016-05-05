@@ -1,0 +1,23 @@
+# install rvm
+curl -L https://get.rvm.io | bash -s stable --auto-dotfiles --autolibs=enable --rails
+
+# Install check last version of rvm
+rvm get stable --autolibs=enable --auto-dotfiles
+
+# install ruby 2.2.2
+rvm install 2.2.2
+
+# create global
+rvm use 2.2.2@global --create
+
+# install bundler on global
+rvm use 2.2.2@global && gem instal bundler
+
+# Change bash_profile
+echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function' >> ~/.bash_profile
+
+# Reload bash_profile
+source ~/.bash_profile
+
+# Solve writable problems on /usr/local
+sudo chown -R `whoami` /usr/local

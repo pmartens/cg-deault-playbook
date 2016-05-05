@@ -1,0 +1,29 @@
+homebrew_taps_dev:
+  - homebrew/php
+
+homebrew_packages_dev:
+#  - ansible
+#  - boot2docker
+#  - docker
+  - mysql
+  - php56
+  - memcached
+  - redis
+
+homebrew_cask_apps_dev:
+ - git
+ - gitx
+ #- virtualbox
+ #- netbeans-php
+ #- omniplan
+ #- rdm
+ #- redis
+ #- sourcetree
+ - atom
+
+dock_apps_dev:
+  - /Applications/Netbeans/NetBeans 8.0.app
+  - /Applications/Atom.app
+  - /Applications/SourceTree
+  - /Applications/Sequel Pro.app
+  - /Applications/VirtualBox.app

@@ -1,0 +1,15 @@
+---
+- name: Ensure configured development aps are tapped.
+  homebrew_tap: tap={{ item }} state=present
+  with_items: "{{homebrew_taps_dev}}"
+
+- name: Ensure configured homebrew development packages are installed.
+  homebrew: name={{ item }} state=present
+  with_items: "{{homebrew_packages_dev}}"
+    
+- name: Install configured cask applications for development.
+  homebrew_cask: name={{ item }} state=present
+  environment:
+    HOMEBREW_CASK_OPTS: "--appdir={{ homebrew_cask_appdir }}"
+  with_items: "{{homebrew_cask_apps_dev}}"
+  sudo: yes

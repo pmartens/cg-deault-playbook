@@ -1,0 +1,63 @@
+---
+- name: 'Dock: Enable App Exposé'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock showAppExposeGestureEnabled -bool true'
+  become: no
+
+- name: 'Dock: Use translucent icons for hidden applications'
+  shell: defaults write ~/Library/Preferences/com.apple.dock showhidden -bool true
+  become: no
+
+- name: 'Dock: Reset the Dock'
+  shell: 'defaults delete ~/Library/Preferences/com.apple.dock'
+#  become_user: "{{ user }}"
+  ignore_errors: yes
+
+- name: 'Dock: Boilerplate: mod-count'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock mod-count -integer 2'
+#  become_user: "{{ user }}"
+
+- name: 'Dock: Boilerplate: version'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock version -integer 1'
+#  become_user: "{{ user }}"
+
+- name: 'Dock: Remove All Dock Apps'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock persistent-apps "<array/>"'
+#  become_user: "{{ user }}"
+
+- name: 'Dock: Remove All Dock Others'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock persistent-others "<array/>"'
+#  become_user: "{{ user }}"
+
+- name: 'Dock: Insert Apps'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>{{ item }}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"'
+#  become_user: "{{ user }}"
+  with_items: dock_apps
+
+- name: 'Dock: Insert Others'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock persistent-others -array-add "<dict><key>tile-type</key><string>{{ item.type | default("directory") }}-tile</string><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>file://{% if item is mapping %}{{ item.path }}{% else %}{{ item }}{% endif %}</string><key>_CFURLStringType</key><integer>15</integer></dict><key>arrangement</key><integer>{{ item.arrange | default(1) }}</integer></dict></dict>"'
+#  become_user: "{{ user }}"
+  with_items: dock_others
+
+#- name: 'Dock: Automatically hide and show the Dock'
+#  shell: 'defaults write com.apple.dock autohide -bool true'
+
+- name: 'Dock: Make Dock icons of hidden applications translucent'
+  shell: 'defaults write com.apple.dock showhidden -bool true'
+
+- name: 'Dock: Enable the reduce transparency option on Yosemite. Save GPU cycles'
+  shell: 'defaults write com.apple.universalaccess reduceTransparency -bool true'
+
+- name: 'Dock: Remove the auto-hiding Dock delay'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock autohide-time-modifier -float 0'
+
+- name: 'Dock: Set the icon size of Dock items'
+  shell: 'defaults write com.apple.dock tilesize -int 30'
+
+- name: 'Dock: Set scroll gestures'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock scroll-to-open -bool TRUE'
+
+- name: 'Dock: Change the maximum magnification level'
+  shell: 'defaults write ~/Library/Preferences/com.apple.dock largesize -float 256'
+
+- name: 'Dock: Herstart dock'
+  shell: 'killall Dock'
